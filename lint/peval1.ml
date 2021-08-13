@@ -1,10 +1,7 @@
-type exp = Int of int | Var of string | App of string * exp
-    | Add of exp * exp | Sub of exp * exp
-    | Mul of exp * exp | Div of exp * exp | Ifz of exp * exp * exp
+open Ast
 
-type def = Declaration of string * string * exp
-type prog = Program of def list * exp
-
+exception Syserr of string
+exception Yikes of string
 let prog1 =
     Program (
         [Declaration ("fact", "x",
@@ -17,9 +14,6 @@ let prog1 =
         ],
         App ("fact", Int 10)
     )
-
-exception Yikes of string
-
 
 let env0 : string -> int = fun x -> raise (Yikes "unbound variable while refering environment")
 let fenv0 : string -> (int -> int) = fun x -> raise (Yikes "unbound variable while refering function environment")
@@ -48,16 +42,13 @@ let rec peval1 p env fenv =
         let rec f = fun x -> eval1 e1 (update env s2 x) (update fenv s1 f)
         in peval1 (Program(tl, e)) env (update fenv s1 f)
 
-let prog2 =
-    Program([
-        Program (
-        [Declaration ("fact", "x",
-            Ifz (Var "x",
-                Int 1,
-                Mul (Var "x",
-                    App ("fact",
-                        Sub (Var "x",
-                            Int 1)))))
-        ],
-        App ("fact", Int 2)
-    ])
+let asert_with_exn boolean exn =
+    if boolean then raise exn        
+let interpreter () =
+    asert_with_exn (Array.length Sys.argv != 2) (Syserr "just one input file is needed");
+    let cin = open_in Sys.argv.(1) in
+    let lexbuf = Lexing.from_channel cin in
+    let res = peval1 (Parser.prog Lexer.lexer lexbuf) env0 fenv0 in
+    Printf.printf "%d\n" res
+
+let _ = interpreter ()

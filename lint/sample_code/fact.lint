@@ -1,0 +1,4 @@
+def fact = fun x ->
+    ifz x then 1 else x * fact (x - 1);
+
+fact 10

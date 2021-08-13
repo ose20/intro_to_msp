@@ -1,0 +1,6 @@
+def fact = fun x ->
+    ifz x then 1 else x * fact (x - 1);
+
+def double = fun x -> 2 * x;
+
+fact 5 + double 5

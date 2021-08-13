@@ -1,0 +1,30 @@
+ast.cmo :
+ast.cmx :
+lexer.cmo : \
+    parser.cmi
+lexer.cmx : \
+    parser.cmx
+parser.cmo : \
+    ast.cmo \
+    parser.cmi
+parser.cmx : \
+    ast.cmx \
+    parser.cmi
+parser.cmi : \
+    ast.cmo
+peval1.cmo : \
+    parser.cmi \
+    lexer.cmo \
+    ast.cmo
+peval1.cmx : \
+    parser.cmx \
+    lexer.cmx \
+    ast.cmx
+print_ast.cmo : \
+    parser.cmi \
+    lexer.cmo \
+    ast.cmo
+print_ast.cmx : \
+    parser.cmx \
+    lexer.cmx \
+    ast.cmx
