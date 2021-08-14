@@ -7,12 +7,12 @@ open Ast
 %token NUM IFZ THEN ELSE PLUS MINUS TIMES DIV LP RP
 %token DEF ASSIGN FUN ARROW ID SEMI EOF
 
-(* 
-    生成規則 X -> a b c ... の優先順位は，
-    -> の右辺の最も右側にある終端記号の優先順位になる．
-    従って，exp -> ifz exp then exp else exp
-    の優先順位は else の優先順位になる．
-*)
+
+//    生成規則 X -> a b c ... の優先順位は，
+//    -> の右辺の最も右側にある終端記号の優先順位になる．
+//    従って，exp -> ifz exp then exp else exp
+//    の優先順位は else の優先順位になる．
+
 
 %nonassoc ELSE
 %left PLUS MINUS

@@ -1,5 +1,9 @@
 ast.cmo :
 ast.cmx :
+interpreter.cmo : \
+    ast.cmo
+interpreter.cmx : \
+    ast.cmx
 lexer.cmo : \
     parser.cmi
 lexer.cmx : \
@@ -15,10 +19,12 @@ parser.cmi : \
 peval1.cmo : \
     parser.cmi \
     lexer.cmo \
+    interpreter.cmo \
     ast.cmo
 peval1.cmx : \
     parser.cmx \
     lexer.cmx \
+    interpreter.cmx \
     ast.cmx
 print_ast.cmo : \
     parser.cmi \

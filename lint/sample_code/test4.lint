@@ -1,0 +1,1 @@
+ifz ifz 0 then 0 else 1 then ifz 1 then 2 else 4 else ifz 100 then 10 else 4
